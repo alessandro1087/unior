@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modulo Competenze</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        /* Stile per un aspetto più gradevole dei checkbox */
+        .custom-checkbox {
+            appearance: none;
+            background-color: #fff;
+            border: 1px solid #d1d5db; /* gray-300 */
+            border-radius: 0.25rem;
+            width: 1.25rem;
+            height: 1.25rem;
+            display: inline-block;
+            position: relative;
+            cursor: pointer;
+            vertical-align: middle;
+            transition: background-color 0.2s, border-color 0.2s;
+        }
+        .custom-checkbox:checked {
+            background-color: #4f46e5; /* indigo-600 */
+            border-color: #4f46e5;
+        }
+        .custom-checkbox:checked::after {
+            content: '✔';
+            font-size: 0.8rem;
+            color: white;
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+        }
+        .custom-checkbox:focus {
+            outline: 2px solid transparent;
+            outline-offset: 2px;
+            box-shadow: 0 0 0 2px #a5b4fc; /* ring-indigo-300 */
+        }
+    </style>
+</head>
+<body class="bg-gray-100 flex items-center justify-center min-h-screen p-4 sm:p-6 lg:p-8">
+
+    <div class="w-full max-w-4xl bg-white rounded-xl shadow-lg p-6 sm:p-8 space-y-8">
+        <div>
+            <h1 class="text-3xl font-bold text-gray-900 text-center">Modulo di Rilevazione Competenze</h1>
+            <p class="mt-2 text-center text-sm text-gray-600">Seleziona i moduli e sottomoduli di tua competenza.</p>
+        </div>
+
+        <form id="competenceForm" class="space-y-6">
+
+            <!-- Sezione Dati Anagrafici -->
+            <div class="bg-gray-50 p-6 rounded-lg border border-gray-200 space-y-6">
+                <h2 class="text-xl font-semibold text-gray-800">Dati Anagrafici</h2>
+                <!-- Campo Email -->
+                <div>
+                    <label for="email" class="block text-sm font-medium text-gray-700">Indirizzo Email</label>
+                    <input type="email" name="email" id="email" required class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" placeholder="tuamail@esempio.com">
+                </div>
+                <!-- Campo Ufficio -->
+                <div>
+                    <label for="ufficio" class="block text-sm font-medium text-gray-700">Ufficio di Appartenenza</label>
+                    <select id="ufficio" name="ufficio" required class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
+                        <option value="" disabled selected>Seleziona un ufficio</option>
+                        <optgroup label="ARFI - Area Risorse Finanziarie e Patrimoniali">
+                            <option value="ARFI0_contabilita">Settore Contabilità, patrimonio e adempimenti fiscali</option>
+                            <option value="ARFI01">&nbsp;&nbsp;&nbsp;Ufficio Trattamenti economici</option>
+                            <option value="ARFI02">&nbsp;&nbsp;&nbsp;Ufficio Fiscale</option>
+                            <option value="ARFI03">&nbsp;&nbsp;&nbsp;Ufficio Patrimonio</option>
+                            <option value="ARFI04">&nbsp;&nbsp;&nbsp;Ufficio Tesoreria ed elaborazioni contabili</option>
+                            <option value="ARFI00_bilancio">Settore Bilancio e Attività contrattuali</option>
+                            <option value="ARFI05">&nbsp;&nbsp;&nbsp;Ufficio Bilancio</option>
+                            <option value="ARFI06">&nbsp;&nbsp;&nbsp;Ufficio Economato</option>
+                            <option value="ARFI07">&nbsp;&nbsp;&nbsp;Ufficio Contratti</option>
+                        </optgroup>
+                        <optgroup label="ARIE - Area Infrastrutture Edilizie e Digitali">
+                            <option value="ARIE0_edilizia">Settore Pianificazione edilizia</option>
+                            <option value="ARIE01">&nbsp;&nbsp;&nbsp;Ufficio progettazione edilizia</option>
+                            <option value="ARIE02">&nbsp;&nbsp;&nbsp;Ufficio Interventi manutentivi</option>
+                            <option value="ARIE03">&nbsp;&nbsp;&nbsp;Ufficio Prevenzione e Sicurezza</option>
+                            <option value="ARIE00_digitale">Settore Sviluppo Digitale</option>
+                            <option value="ARIE04">&nbsp;&nbsp;&nbsp;Ufficio infrastrutture di rete e architetture distribuite</option>
+                            <option value="ARIE05">&nbsp;&nbsp;&nbsp;Ufficio Data Warehouse e Monitoraggio Statistico</option>
+                            <option value="ARIE06">&nbsp;&nbsp;&nbsp;Ufficio Procedure e Sistemi Integrati</option>
+                            <option value="ARIE07">&nbsp;&nbsp;&nbsp;Ufficio Redazione web e comunicazione multimediale</option>
+                        </optgroup>
+                        <optgroup label="ARUA - Area Risorse Umane e Affari Istituzionali">
+                            <option value="ARUA0_legali">Settore Servizi Legali e aggiornamento normativo</option>
+                            <option value="ARUA01">&nbsp;&nbsp;&nbsp;Ufficio legale e procedimenti disciplinari</option>
+                            <option value="ARUA02">&nbsp;&nbsp;&nbsp;Ufficio Previdenziale</option>
+                            <option value="ARUA03">&nbsp;&nbsp;&nbsp;Ufficio Gestione Flussi documentali e archivio digitale</option>
+                            <option value="ARUA00_sviluppo">Settore Sviluppo del personale e qualità della performance</option>
+                            <option value="ARUA04">&nbsp;&nbsp;&nbsp;Ufficio performance, formazione e anticorruzione</option>
+                            <option value="ARUA05">&nbsp;&nbsp;&nbsp;Ufficio Servizi al personale TAB e CEL, welfare e dialogo sindacale</option>
+                            <option value="ARUA06">&nbsp;&nbsp;&nbsp;Ufficio Servizi al personale docente e ricercatore</option>
+                        </optgroup>
+                        <optgroup label="DIRG - Direzione Generale">
+                            <option value="DIRG01">Segreteria di Rettorato e di Direzione</option>
+                            <option value="DIRG02">Ufficio Servizi Generali</option>
+                            <option value="DIRG03">Ufficio supporto organi di Governo, valutazione e controllo</option>
+                            <option value="DIRG04">Ufficio Relazioni Pubbliche, trasparenza e protezione dati</option>
+                        </optgroup>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Sezione Risorse Umane -->
+            <div class="bg-gray-50 p-6 rounded-lg border border-gray-200">
+                <h2 class="text-xl font-semibold text-gray-800 mb-4 flex items-center">
+                    <input type="checkbox" id="ru_main" data-module="ru" class="custom-checkbox mr-3">
+                    <label for="ru_main" class="cursor-pointer">Risorse Umane (RU)</label>
+                </h2>
+                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 pl-8">
+                    <div><input type="checkbox" id="ru03" name="ru[]" value="RU03" class="custom-checkbox ru-sub"><label for="ru03" class="ml-2 text-gray-700">RU03 Valutazione Prestazioni</label></div>
+                    <div><input type="checkbox" id="ru02" name="ru[]" value="RU02" class="custom-checkbox ru-sub"><label for="ru02" class="ml-2 text-gray-700">RU02 Gestione Organico</label></div>
+                    <div><input type="checkbox" id="ru50" name="ru[]" value="RU50" class="custom-checkbox ru-sub"><label for="ru50" class="ml-2 text-gray-700">RU50 Configurazione Missioni e Trasferte</label></div>
+                    <div><input type="checkbox" id="ru04" name="ru[]" value="RU04" class="custom-checkbox ru-sub"><label for="ru04" class="ml-2 text-gray-700">RU04 Sviluppo e Formazione</label></div>
+                    <div><input type="checkbox" id="ru05" name="ru[]" value="RU05" class="custom-checkbox ru-sub"><label for="ru05" class="ml-2 text-gray-700">RU05 Competenze</label></div>
+                </div>
+            </div>
+
+            <!-- Sezione Contabilità -->
+            <div class="bg-gray-50 p-6 rounded-lg border border-gray-200">
+                <h2 class="text-xl font-semibold text-gray-800 mb-4 flex items-center">
+                    <input type="checkbox" id="co_main" data-module="co" class="custom-checkbox mr-3">
+                    <label for="co_main" class="cursor-pointer">Contabilità (CO)</label>
+                </h2>
+                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 pl-8">
+                    <div><input type="checkbox" id="co00" name="co[]" value="CO00" class="custom-checkbox co-sub"><label for="co00" class="ml-2 text-gray-700">CO00 Contabilità Trasversale</label></div>
+                    <div><input type="checkbox" id="co01" name="co[]" value="CO01" class="custom-checkbox co-sub"><label for="co01" class="ml-2 text-gray-700">CO01 Contabilità Finanziaria</label></div>
+                    <div><input type="checkbox" id="co02" name="co[]" value="CO02" class="custom-checkbox co-sub"><label for="co02" class="ml-2 text-gray-700">CO02 Contabilità Economica</label></div>
+                    <div><input type="checkbox" id="co03" name="co[]" value="CO03" class="custom-checkbox co-sub"><label for="co03" class="ml-2 text-gray-700">CO03 Contabilità Analitica</label></div>
+                    <div><input type="checkbox" id="co05" name="co[]" value="CO05" class="custom-checkbox co-sub"><label for="co05" class="ml-2 text-gray-700">CO05 Gestione Fiscale</label></div>
+                    <div><input type="checkbox" id="co07" name="co[]" value="CO07" class="custom-checkbox co-sub"><label for="co07" class="ml-2 text-gray-700">CO07 Inventario</label></div>
+                </div>
+            </div>
+
+            <!-- Sezione Ricerca -->
+            <div class="bg-gray-50 p-6 rounded-lg border border-gray-200">
+                <h2 class="text-xl font-semibold text-gray-800 mb-4 flex items-center">
+                    <input type="checkbox" id="ri_main" data-module="ri" class="custom-checkbox mr-3">
+                    <label for="ri_main" class="cursor-pointer">Ricerca (RI)</label>
+                </h2>
+                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 pl-8">
+                    <div><input type="checkbox" id="ri03" name="ri[]" value="RI03" class="custom-checkbox ri-sub"><label for="ri03" class="ml-2 text-gray-700">RI03 Anagrafe delle risorse</label></div>
+                    <div><input type="checkbox" id="ri10" name="ri[]" value="RI10" class="custom-checkbox ri-sub"><label for="ri10" class="ml-2 text-gray-700">RI10 Catalogo pubblico</label></div>
+                    <div><input type="checkbox" id="ri01" name="ri[]" value="RI01" class="custom-checkbox ri-sub"><label for="ri01" class="ml-2 text-gray-700">RI01 Catalogo Prodotti</label></div>
+                    <div><input type="checkbox" id="ri02" name="ri[]" value="RI02" class="custom-checkbox ri-sub"><label for="ri02" class="ml-2 text-gray-700">RI02 Valutazione Prodotti</label></div>
+                    <div><input type="checkbox" id="ri00" name="ri[]" value="RI00" class="custom-checkbox ri-sub"><label for="ri00" class="ml-2 text-gray-700">RI00 Servizi trasversali</label></div>
+                </div>
+            </div>
+
+            <!-- Sezione Didattica -->
+            <div class="bg-gray-50 p-6 rounded-lg border border-gray-200">
+                <h2 class="text-xl font-semibold text-gray-800 mb-4 flex items-center">
+                    <input type="checkbox" id="di_main" data-module="di" class="custom-checkbox mr-3">
+                    <label for="di_main" class="cursor-pointer">Didattica (DI)</label>
+                </h2>
+                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 pl-8">
+                    <div><input type="checkbox" id="di01" name="di[]" value="DI01" class="custom-checkbox di-sub"><label for="di01" class="ml-2 text-gray-700">DI01 Programmazione Didattica</label></div>
+                    <div><input type="checkbox" id="di02" name="di[]" value="DI02" class="custom-checkbox di-sub"><label for="di02" class="ml-2 text-gray-700">DI02 Simulazione Offerta Formativa</label></div>
+                </div>
+            </div>
+
+            <!-- Sezione Gestione Progetti -->
+            <div class="bg-gray-50 p-6 rounded-lg border border-gray-200">
+                <h2 class="text-xl font-semibold text-gray-800 mb-4 flex items-center">
+                    <input type="checkbox" id="pj_main" data-module="pj" class="custom-checkbox mr-3">
+                    <label for="pj_main" class="cursor-pointer">Gestione Progetti (PJ)</label>
+                </h2>
+                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 pl-8">
+                    <div><input type="checkbox" id="pj01" name="pj[]" value="PJ01" class="custom-checkbox pj-sub"><label for="pj01" class="ml-2 text-gray-700">PJ01 Struttura progetti</label></div>
+                    <div><input type="checkbox" id="pj02" name="pj[]" value="PJ02" class="custom-checkbox pj-sub"><label for="pj02" class="ml-2 text-gray-700">PJ02 Progetti di Ricerca</label></div>
+                </div>
+            </div>
+
+            <!-- Sezione Pianificazione e Controllo -->
+            <div class="bg-gray-50 p-6 rounded-lg border border-gray-200">
+                <h2 class="text-xl font-semibold text-gray-800 mb-4 flex items-center">
+                    <input type="checkbox" id="pc_main" data-module="pc" class="custom-checkbox mr-3">
+                    <label for="pc_main" class="cursor-pointer">Pianificazione e Controllo (PC)</label>
+                </h2>
+                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 pl-8">
+                    <div><input type="checkbox" id="pc02" name="pc[]" value="PC02" class="custom-checkbox pc-sub"><label for="pc02" class="ml-2 text-gray-700">PC02 Pianificazione Budgeting</label></div>
+                    <div><input type="checkbox" id="pc00" name="pc[]" value="PC00" class="custom-checkbox pc-sub"><label for="pc00" class="ml-2 text-gray-700">PC00 Reportistica ed Analisi</label></div>
+                    <div><input type="checkbox" id="pc01" name="pc[]" value="PC01" class="custom-checkbox pc-sub"><label for="pc01" class="ml-2 text-gray-700">PC01 Allocazione Costi</label></div>
+                </div>
+            </div>
+
+            <!-- Sezione Iris -->
+            <div class="bg-gray-50 p-6 rounded-lg border border-gray-200">
+                <h2 class="text-xl font-semibold text-gray-800 mb-4 flex items-center">
+                     <input type="checkbox" id="ir_main" data-module="ir" class="custom-checkbox mr-3">
+                     <label for="ir_main" class="cursor-pointer">Iris (IR)</label>
+                </h2>
+                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 pl-8">
+                    <div><input type="checkbox" id="ir_gen" name="ir[]" value="Iris generico" class="custom-checkbox ir-sub"><label for="ir_gen" class="ml-2 text-gray-700">Iris generico</label></div>
+                </div>
+            </div>
+
+            <!-- Sezione Reporting -->
+            <div class="bg-gray-50 p-6 rounded-lg border border-gray-200">
+                <h2 class="text-xl font-semibold text-gray-800 mb-4 flex items-center">
+                    <input type="checkbox" id="od_main" data-module="od" class="custom-checkbox mr-3">
+                    <label for="od_main" class="cursor-pointer">Reporting (OD)</label>
+                </h2>
+                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 pl-8">
+                    <div><input type="checkbox" id="od0610" name="od[]" value="0610" class="custom-checkbox od-sub"><label for="od0610" class="ml-2 text-gray-700">0610 REGISTRO DOCENTE</label></div>
+                    <div><input type="checkbox" id="od0611" name="od[]" value="0611" class="custom-checkbox od-sub"><label for="od0611" class="ml-2 text-gray-700">0611 DIARIO DOCENTE</label></div>
+                    <div><input type="checkbox" id="od0201" name="od[]" value="0201" class="custom-checkbox od-sub"><label for="od0201" class="ml-2 text-gray-700">0201 CATALOGO PRODOTTI DELLA RICERCA</label></div>
+                    <div><input type="checkbox" id="od0202" name="od[]" value="0202" class="custom-checkbox od-sub"><label for="od0202" class="ml-2 text-gray-700">0202 ANAGRAFE AUTORI DELLA RICERCA</label></div>
+                    <div><input type="checkbox" id="od0301" name="od[]" value="0301" class="custom-checkbox od-sub"><label for="od0301" class="ml-2 text-gray-700">0301 GESTIONE BUDGET E RENDICONTO (COAN)</label></div>
+                    <div><input type="checkbox" id="od0601" name="od[]" value="0601" class="custom-checkbox od-sub"><label for="od0601" class="ml-2 text-gray-700">0601 QUESTIONARI</label></div>
+                    <div><input type="checkbox" id="od0602" name="od[]" value="0602" class="custom-checkbox od-sub"><label for="od0602" class="ml-2 text-gray-700">0602 APPELLI ESAME</label></div>
+                    <div><input type="checkbox" id="od0603" name="od[]" value="0603" class="custom-checkbox od-sub"><label for="od0603" class="ml-2 text-gray-700">0603 VEBALI APPELLI ESAME</label></div>
+                    <div><input type="checkbox" id="od0701" name="od[]" value="0701" class="custom-checkbox od-sub"><label for="od0701" class="ml-2 text-gray-700">0701 VALUTAZIONE OBIETTIVI INDIVIDUALI</label></div>
+                    <div><input type="checkbox" id="od0702" name="od[]" value="0702" class="custom-checkbox od-sub"><label for="od0702" class="ml-2 text-gray-700">0702 VALUTAZIONE COMPETENZE</label></div>
+                    <div><input type="checkbox" id="od0101" name="od[]" value="0101" class="custom-checkbox od-sub"><label for="od0101" class="ml-2 text-gray-700">0101 CARRIERE</label></div>
+                    <div><input type="checkbox" id="od0102" name="od[]" value="0102" class="custom-checkbox od-sub"><label for="od0102" class="ml-2 text-gray-700">0102 LIQUIDATO</label></div>
+                    <div><input type="checkbox" id="od0607" name="od[]" value="0607" class="custom-checkbox od-sub"><label for="od0607" class="ml-2 text-gray-700">0607 QUESTIONARI ANVUR DOCENTI</label></div>
+                </div>
+            </div>
+
+            <!-- Pulsante di Invio -->
+            <div class="flex justify-end pt-6">
+                <button type="submit" class="inline-flex justify-center py-3 px-6 border border-transparent shadow-sm text-base font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-colors">
+                    Invia Competenze
+                </button>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Logica per selezionare/deselezionare tutti i sottomoduli
+            const mainCheckboxes = document.querySelectorAll('input[type="checkbox"][data-module]');
+            
+            mainCheckboxes.forEach(mainCheckbox => {
+                mainCheckbox.addEventListener('change', function () {
+                    const moduleName = this.dataset.module;
+                    const subCheckboxes = document.querySelectorAll(`.${moduleName}-sub`);
+                    subCheckboxes.forEach(subCheckbox => {
+                        subCheckbox.checked = this.checked;
+                        // Aggiorna lo stato indeterminato del genitore
+                        subCheckbox.dispatchEvent(new Event('change'));
+                    });
+                });
+            });
+
+            // Logica per gestire lo stato del checkbox principale in base ai sottomoduli
+            const allSubCheckboxes = document.querySelectorAll('.ru-sub, .co-sub, .ri-sub, .di-sub, .pj-sub, .pc-sub, .ir-sub, .od-sub');
+            allSubCheckboxes.forEach(subCheckbox => {
+                subCheckbox.addEventListener('change', function() {
+                    const classList = Array.from(this.classList);
+                    const moduleClass = classList.find(c => c.endsWith('-sub'));
+                    if (!moduleClass) return;
+                    
+                    const moduleName = moduleClass.split('-')[0];
+                    const mainCheckbox = document.getElementById(`${moduleName}_main`);
+                    const subCheckboxesOfModule = document.querySelectorAll(`.${moduleName}-sub`);
+
+                    const allChecked = Array.from(subCheckboxesOfModule).every(cb => cb.checked);
+                    const someChecked = Array.from(subCheckboxesOfModule).some(cb => cb.checked);
+
+                    if (allChecked) {
+                        mainCheckbox.checked = true;
+                        mainCheckbox.indeterminate = false;
+                    } else if (someChecked) {
+                        mainCheckbox.checked = false;
+                        mainCheckbox.indeterminate = true;
+                    } else {
+                        mainCheckbox.checked = false;
+                        mainCheckbox.indeterminate = false;
+                    }
+                });
+            });
+
+            // Gestione dell'invio del form
+            const form = document.getElementById('competenceForm');
+            form.addEventListener('submit', function (e) {
+                e.preventDefault(); // Previene l'invio reale del form
+                
+                const formData = new FormData(form);
+                const result = {};
+
+                for (const [key, value] of formData.entries()) {
+                    const cleanKey = key.replace('[]', '');
+                    if (!result[cleanKey]) {
+                        result[cleanKey] = [];
+                    }
+                    result[cleanKey].push(value);
+                }
+
+                // Per i campi non multipli, non li vogliamo come array
+                if (result.email && result.email.length === 1) {
+                    result.email = result.email[0];
+                }
+                 if (result.ufficio && result.ufficio.length === 1) {
+                    result.ufficio = result.ufficio[0];
+                }
+
+                console.log('Dati del form inviati:', result);
+                // Sostituzione dell'alert con un messaggio non bloccante
+                const submitButton = e.submitter;
+                const originalText = submitButton.innerHTML;
+                submitButton.innerHTML = 'Inviato!';
+                submitButton.disabled = true;
+                setTimeout(() => {
+                    submitButton.innerHTML = originalText;
+                    submitButton.disabled = false;
+                    // opzionalmente, resetta il form
+                    // form.reset(); 
+                    // allSubCheckboxes.forEach(cb => cb.dispatchEvent(new Event('change'))); // aggiorna i checkbox principali
+                }, 2000);
+            });
+        });
+    </script>
+
+</body>
+</html>
