@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Modulo Competenze</title>
+    <title>Modulo Competenze Completo</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
@@ -112,166 +112,257 @@
                 </div>
             </div>
             
-            <!-- Funzione per generare le schede dei moduli -->
-            <script>
-                const modules = [
-                    { id: 'ru', name: 'Risorse Umane', sub: [
-                        {id: 'ru03', label: 'RU03 Valutazione Prestazioni'}, {id: 'ru02', label: 'RU02 Gestione Organico'},
-                        {id: 'ru50', label: 'RU50 Configurazione Missioni e Trasferte'}, {id: 'ru04', label: 'RU04 Sviluppo e Formazione'}, {id: 'ru05', label: 'RU05 Competenze'}
-                    ]},
-                    { id: 'co', name: 'Contabilità', sub: [
-                        {id: 'co00', label: 'CO00 Contabilità Trasversale'}, {id: 'co01', label: 'CO01 Contabilità Finanziaria'},
-                        {id: 'co02', label: 'CO02 Contabilità Economica'}, {id: 'co03', label: 'CO03 Contabilità Analitica'},
-                        {id: 'co05', label: 'CO05 Gestione Fiscale'}, {id: 'co07', label: 'CO07 Inventario'}
-                    ]},
-                    { id: 'ri', name: 'Ricerca', sub: [
-                        {id: 'ri03', label: 'RI03 Anagrafe delle risorse'}, {id: 'ri10', label: 'RI10 Catalogo pubblico'},
-                        {id: 'ri01', label: 'RI01 Catalogo Prodotti'}, {id: 'ri02', label: 'RI02 Valutazione Prodotti'}, {id: 'ri00', label: 'RI00 Servizi trasversali'}
-                    ]},
-                    { id: 'di', name: 'Didattica', sub: [
-                        {id: 'di01', label: 'DI01 Programmazione Didattica'}, {id: 'di02', label: 'DI02 Simulazione Offerta Formativa'}
-                    ]},
-                    { id: 'pj', name: 'Gestione Progetti', sub: [
-                        {id: 'pj01', label: 'PJ01 Struttura progetti'}, {id: 'pj02', label: 'PJ02 Progetti di Ricerca'}
-                    ]},
-                    { id: 'pc', name: 'Pianificazione e Controllo', sub: [
-                        {id: 'pc02', label: 'PC02 Pianificazione Budgeting'}, {id: 'pc00', label: 'PC00 Reportistica ed Analisi'}, {id: 'pc01', label: 'PC01 Allocazione Costi'}
-                    ]},
-                    { id: 'ir', name: 'Iris', sub: [{id: 'ir_gen', label: 'Iris generico'}]},
-                    { id: 'od', name: 'Reporting', sub: [
-                        {id: 'od0610', label: '0610 REGISTRO DOCENTE'}, {id: 'od0611', label: '0611 DIARIO DOCENTE'},
-                        {id: 'od0201', label: '0201 CATALOGO PRODOTTI DELLA RICERCA'}, {id: 'od0202', label: '0202 ANAGRAFE AUTORI DELLA RICERCA'},
-                        {id: 'od0301', label: '0301 GESTIONE BUDGET E RENDICONTO (COAN)'}, {id: 'od0601', label: '0601 QUESTIONARI'},
-                        {id: 'od0602', label: '0602 APPELLI ESAME'}, {id: 'od0603', label: '0603 VEBALI APPELLI ESAME'},
-                        {id: 'od0701', label: '0701 VALUTAZIONE OBIETTIVI INDIVIDUALI'}, {id: 'od0702', label: '0702 VALUTAZIONE COMPETENZE'},
-                        {id: 'od0101', label: '0101 CARRIERE'}, {id: 'od0102', label: '0102 LIQUIDATO'}, {id: 'od0607', label: '0607 QUESTIONARI ANVUR DOCENTI'}
-                    ]},
-                    { id: 'dm', name: 'Data Mart', sub: [{id: 'dm_gen', label: 'Data Mart generico'}]},
-                    { id: 'dw', name: 'Reporting Data Mart', sub: [{id: 'dw_gen', label: 'Reporting Data Mart generico'}]}
-                ];
-
-                const formContainer = document.getElementById('competenceForm');
-
-                modules.forEach(module => {
-                    const card = document.createElement('div');
-                    card.className = 'p-6 rounded-xl border border-slate-200 transition-all duration-300 hover:shadow-lg hover:border-indigo-300';
-
-                    let submodulesHTML = module.sub.map(sub => `
-                        <div class="flex items-center">
-                            <input type="checkbox" id="${sub.id}" name="${module.id}[]" value="${sub.id.toUpperCase()}" class="custom-checkbox ${module.id}-sub">
-                            <label for="${sub.id}" class="ml-3 text-sm font-medium text-slate-700 cursor-pointer">${sub.label}</label>
-                        </div>
-                    `).join('');
-
-                    card.innerHTML = `
-                        <h2 class="text-xl font-bold text-slate-800 mb-5 flex items-center">
-                            <input type="checkbox" id="${module.id}_main" data-module="${module.id}" class="custom-checkbox mr-4">
-                            <label for="${module.id}_main" class="cursor-pointer">${module.name} (${module.id.toUpperCase()})</label>
-                        </h2>
-                        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-4 pl-10">
-                            ${submodulesHTML}
-                        </div>
-                    `;
-                    formContainer.appendChild(card);
-                });
-
-                const submitButtonContainer = document.createElement('div');
-                submitButtonContainer.className = 'flex justify-end pt-6';
-                submitButtonContainer.innerHTML = `
-                    <button type="submit" class="inline-flex justify-center py-3 px-8 border border-transparent shadow-sm text-base font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-transform hover:scale-105">
-                        Invia Competenze
-                    </button>
-                `;
-                formContainer.appendChild(submitButtonContainer);
-
-            </script>
+            <!-- Contenitore per le schede dei moduli generate dinamicamente -->
+            <div id="module-cards-container" class="space-y-6"></div>
 
 
-            <script>
-                document.addEventListener('DOMContentLoaded', function () {
-                    // La logica viene eseguita dopo che il DOM è stato completamente caricato,
-                    // inclusi gli elementi generati dinamicamente.
-
-                    // Logica per selezionare/deselezionare tutti i sottomoduli
-                    const mainCheckboxes = document.querySelectorAll('input[type="checkbox"][data-module]');
-                    mainCheckboxes.forEach(mainCheckbox => {
-                        mainCheckbox.addEventListener('change', function () {
-                            const moduleName = this.dataset.module;
-                            const subCheckboxes = document.querySelectorAll(`.${moduleName}-sub`);
-                            subCheckboxes.forEach(subCheckbox => {
-                                if (subCheckbox.checked !== this.checked) {
-                                    subCheckbox.checked = this.checked;
-                                }
-                            });
-                        });
-                    });
-
-                    // Logica per gestire lo stato del checkbox principale in base ai sottomoduli
-                    const allSubCheckboxes = document.querySelectorAll('.ru-sub, .co-sub, .ri-sub, .di-sub, .pj-sub, .pc-sub, .ir-sub, .od-sub, .dm-sub, .dw-sub');
-                    allSubCheckboxes.forEach(subCheckbox => {
-                        subCheckbox.addEventListener('change', function() {
-                            const classList = Array.from(this.classList);
-                            const moduleClass = classList.find(c => c.endsWith('-sub'));
-                            if (!moduleClass) return;
-                            
-                            const moduleName = moduleClass.split('-')[0];
-                            const mainCheckbox = document.getElementById(`${moduleName}_main`);
-                            const subCheckboxesOfModule = document.querySelectorAll(`.${moduleName}-sub`);
-
-                            const allChecked = Array.from(subCheckboxesOfModule).every(cb => cb.checked);
-                            const someChecked = Array.from(subCheckboxesOfModule).some(cb => cb.checked);
-
-                            if (allChecked) {
-                                mainCheckbox.checked = true;
-                                mainCheckbox.indeterminate = false;
-                            } else if (someChecked) {
-                                mainCheckbox.checked = false;
-                                mainCheckbox.indeterminate = true;
-                            } else {
-                                mainCheckbox.checked = false;
-                                mainCheckbox.indeterminate = false;
-                            }
-                        });
-                    });
-
-                    // Gestione dell'invio del form
-                    const form = document.getElementById('competenceForm');
-                    form.addEventListener('submit', function (e) {
-                        e.preventDefault(); // Previene l'invio reale del form
-                        
-                        const formData = new FormData(form);
-                        const result = {};
-
-                        for (const [key, value] of formData.entries()) {
-                            const cleanKey = key.replace('[]', '');
-                            if (!result[cleanKey]) {
-                                result[cleanKey] = [];
-                            }
-                            result[cleanKey].push(value);
-                        }
-
-                        // Per i campi non multipli, non li vogliamo come array
-                        if (result.email && result.email.length === 1) result.email = result.email[0];
-                        if (result.ufficio && result.ufficio.length === 1) result.ufficio = result.ufficio[0];
-
-                        console.log('Dati del form inviati:', result);
-                        
-                        // Messaggio di feedback non bloccante sul pulsante
-                        const submitButton = e.submitter;
-                        const originalText = submitButton.innerHTML;
-                        submitButton.innerHTML = 'Inviato con successo!';
-                        submitButton.disabled = true;
-                        
-                        setTimeout(() => {
-                            submitButton.innerHTML = originalText;
-                            submitButton.disabled = false;
-                        }, 2500);
-                    });
-                });
-            </script>
-
+            <!-- Pulsante di Invio -->
+             <div class="flex justify-end pt-6">
+                <button type="submit" class="inline-flex justify-center py-3 px-8 border border-transparent shadow-sm text-base font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-transform hover:scale-105">
+                    Invia Competenze
+                </button>
+            </div>
         </form>
     </div>
 
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            
+            const modules = [
+                { 
+                    id: 'co', 
+                    name: 'Area Contabilità', 
+                    description: 'Questo modulo è il cuore della gestione finanziaria e patrimoniale dell\'ateneo.',
+                    groups: [
+                        { title: 'Contabilità Generale (CoGe) e Fiscale', items: [
+                            { id: 'co00', label: 'CO00 - Contabilità Trasversale' },
+                            { id: 'co01', label: 'CO01 - Contabilità Finanziaria' },
+                            { id: 'co02', label: 'CO02 - Contabilità Economica' },
+                            { id: 'co05', label: 'CO05 - Gestione Fiscale e IVA' }
+                        ]},
+                        { title: 'Contabilità Analitica (CoAn)', items: [
+                            { id: 'co03', label: 'CO03 - Contabilità Analitica' }
+                        ]},
+                        { title: 'Cicli Gestionali e Altro', items: [
+                            { id: 'co_acquisti', label: 'Ciclo Acquisti (Passivo)' },
+                            { id: 'co_vendite', label: 'Ciclo Vendite (Attivo)' },
+                            { id: 'co_missioni', label: 'Missioni e Compensi' },
+                            { id: 'co07', label: 'CO07 - Inventario e Beni Ammortizzabili' },
+                            { id: 'co_fondo', label: 'Fondo Economale' }
+                        ]}
+                    ]
+                },
+                { 
+                    id: 'ru', 
+                    name: 'Area Risorse Umane', 
+                    description: 'Questo modulo gestisce tutti gli aspetti legati al personale.',
+                    groups: [
+                        { title: 'Gestione Anagrafica e Carriera', items: [
+                            { id: 'ru02', label: 'RU02 - Gestione Organico' },
+                            { id: 'ru_carriera', label: 'Gestione Eventi di Carriera' }
+                        ]},
+                        { title: 'Sviluppo e Valutazione', items: [
+                            { id: 'ru04', label: 'RU04 - Sviluppo e Formazione' },
+                            { id: 'ru05', label: 'RU05 - Competenze' },
+                            { id: 'ru03', label: 'RU03 - Valutazione Prestazioni' }
+                        ]},
+                        { title: 'Altre Gestoni', items: [
+                            { id: 'ru50', label: 'RU50 - Configurazione Missioni e Trasferte' },
+                            { id: 'ru_presenze', label: 'Presenze/Assenze' }
+                        ]}
+                    ]
+                },
+                { 
+                    id: 'di', 
+                    name: 'Area Didattica',
+                    description: 'Gestione dell\'offerta formativa e del percorso degli studenti, integrato con ESSE3.',
+                    groups: [
+                        { title: 'Programmazione e Struttura', items: [
+                            { id: 'di01', label: 'DI01 - Programmazione Didattica' },
+                            { id: 'di02', label: 'DI02 - Simulazione Offerta Formativa' },
+                            { id: 'di_struttura', label: 'Gestione Struttura Didattica' },
+                            { id: 'di_coperture', label: 'Gestione delle Coperture' }
+                        ]},
+                         { title: 'Dettaglio Corsi ed Esportazione', items: [
+                            { id: 'di_syllabus', label: 'Syllabus/ECTS' },
+                            { id: 'di_export', label: 'Esportazione Dati verso ESSE3' }
+                        ]}
+                    ]
+                },
+                { 
+                    id: 'pj', 
+                    name: 'Area Ricerca e Progetti',
+                    description: 'Supporto alla gestione e rendicontazione delle attività di ricerca.',
+                    groups: [
+                        { title: 'Catalogo Prodotti (IRIS)', items: [
+                            { id: 'ri01', label: 'RI01 - Catalogo Prodotti' },
+                            { id: 'ri02', label: 'RI02 - Valutazione Prodotti' },
+                            { id: 'ri03', label: 'RI03 - Anagrafe delle risorse' },
+                            { id: 'ri10', label: 'RI10 - Catalogo pubblico' }
+                        ]},
+                        { title: 'Gestione Progetti di Ricerca', items: [
+                            { id: 'pj01', label: 'PJ01 - Struttura progetti' },
+                            { id: 'pj02', label: 'PJ02 - Progetti di Ricerca' },
+                            { id: 'pj_budget', label: 'Definizione del budget di progetto' },
+                            { id: 'pj_rendicontazione', label: 'Rendicontazione e monitoraggio' }
+                        ]},
+                        { title: 'Servizi Trasversali Ricerca', items: [
+                            { id: 'ri00', label: 'RI00 - Servizi trasversali' }
+                        ]}
+                    ]
+                },
+                { 
+                    id: 'pc', 
+                    name: 'Pianificazione e Controllo', 
+                    description: 'Modulo per la gestione della pianificazione economica e l\'analisi dei dati.',
+                    groups: [{ items: [
+                        {id: 'pc02', label: 'PC02 - Pianificazione Budgeting'}, {id: 'pc00', label: 'PC00 - Reportistica ed Analisi'}, {id: 'pc01', label: 'PC01 - Allocazione Costi'}
+                    ]}]
+                },
+                { 
+                    id: 'ir', 
+                    name: 'Iris', 
+                    description: 'Modulo generico per la gestione dei dati IRIS.',
+                    groups: [{ items: [{id: 'ir_gen', label: 'Iris generico'}]}]
+                },
+                { 
+                    id: 'od', 
+                    name: 'Reporting', 
+                    description: 'Competenze relative alla generazione di reportistica specifica.',
+                    groups: [{ items: [
+                        {id: 'od0610', label: '0610 - REGISTRO DOCENTE'}, {id: 'od0611', label: '0611 - DIARIO DOCENTE'},
+                        {id: 'od0201', label: '0201 - CATALOGO PRODOTTI DELLA RICERCA'}, {id: 'od0202', label: '0202 - ANAGRAFE AUTORI DELLA RICERCA'},
+                        {id: 'od0301', label: '0301 - GESTIONE BUDGET E RENDICONTO (COAN)'}, {id: 'od0601', label: '0601 - QUESTIONARI'},
+                        {id: 'od0602', label: '0602 - APPELLI ESAME'}, {id: 'od0603', label: '0603 - VERBALI APPELLI ESAME'},
+                        {id: 'od0701', label: '0701 - VALUTAZIONE OBIETTIVI INDIVIDUALI'}, {id: 'od0702', label: '0702 - VALUTAZIONE COMPETENZE'},
+                        {id: 'od0101', label: '0101 - CARRIERE'}, {id: 'od0102', label: '0102 - LIQUIDATO'}, {id: 'od0607', label: '0607 - QUESTIONARI ANVUR DOCENTI'}
+                    ]}]
+                },
+                { 
+                    id: 'dm', 
+                    name: 'Data Mart', 
+                    description: 'Competenze generiche relative ai Data Mart.',
+                    groups: [{ items: [{id: 'dm_gen', label: 'Data Mart generico'}]}]
+                },
+                { 
+                    id: 'dw', 
+                    name: 'Reporting Data Mart',
+                    description: 'Competenze generiche relative alla reportistica su Data Mart.',
+                    groups: [{ items: [{id: 'dw_gen', label: 'Reporting Data Mart generico'}]}]
+                }
+            ];
+
+            const container = document.getElementById('module-cards-container');
+
+            modules.forEach(module => {
+                const card = document.createElement('div');
+                card.className = 'p-6 rounded-xl border border-slate-200 transition-all duration-300 hover:shadow-lg hover:border-indigo-300 bg-white';
+                
+                let moduleContent = `
+                    <h2 class="text-xl font-bold text-slate-800 mb-2 flex items-center">
+                        <input type="checkbox" id="${module.id}_main" data-module="${module.id}" class="custom-checkbox mr-4">
+                        <label for="${module.id}_main" class="cursor-pointer">${module.name} (${module.id.toUpperCase()})</label>
+                    </h2>
+                    <p class="text-sm text-slate-600 mb-5 pl-10">${module.description}</p>
+                `;
+
+                module.groups.forEach(group => {
+                    if (group.title) {
+                        moduleContent += `<h3 class="font-semibold text-slate-700 mt-4 mb-2 pl-10">${group.title}</h3>`;
+                    }
+                    
+                    let itemsHTML = group.items.map(item => `
+                        <div class="flex items-center">
+                            <input type="checkbox" id="${item.id}" name="${module.id}[]" value="${item.label}" class="custom-checkbox ${module.id}-sub">
+                            <label for="${item.id}" class="ml-3 text-sm font-medium text-slate-700 cursor-pointer">${item.label}</label>
+                        </div>
+                    `).join('');
+
+                    moduleContent += `<div class="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-4 ${group.title ? 'pl-14' : 'pl-10'}">
+                        ${itemsHTML}
+                    </div>`;
+                });
+
+                card.innerHTML = moduleContent;
+                container.appendChild(card);
+            });
+
+            // Logica per selezionare/deselezionare tutti i sottomoduli
+            const mainCheckboxes = document.querySelectorAll('input[type="checkbox"][data-module]');
+            mainCheckboxes.forEach(mainCheckbox => {
+                mainCheckbox.addEventListener('change', function () {
+                    const moduleName = this.dataset.module;
+                    const subCheckboxes = document.querySelectorAll(`.${moduleName}-sub`);
+                    subCheckboxes.forEach(subCheckbox => {
+                        if (subCheckbox.checked !== this.checked) {
+                            subCheckbox.checked = this.checked;
+                        }
+                    });
+                });
+            });
+
+            // Logica per gestire lo stato del checkbox principale in base ai sottomoduli
+            const allSubCheckboxes = document.querySelectorAll('input[class*="-sub"]');
+            allSubCheckboxes.forEach(subCheckbox => {
+                subCheckbox.addEventListener('change', function() {
+                    const classList = Array.from(this.classList);
+                    const moduleClass = classList.find(c => c.endsWith('-sub'));
+                    if (!moduleClass) return;
+                    
+                    const moduleName = moduleClass.split('-')[0];
+                    const mainCheckbox = document.getElementById(`${moduleName}_main`);
+                    if (!mainCheckbox) return;
+                    
+                    const subCheckboxesOfModule = document.querySelectorAll(`.${moduleName}-sub`);
+
+                    const allChecked = Array.from(subCheckboxesOfModule).every(cb => cb.checked);
+                    const someChecked = Array.from(subCheckboxesOfModule).some(cb => cb.checked);
+
+                    if (allChecked) {
+                        mainCheckbox.checked = true;
+                        mainCheckbox.indeterminate = false;
+                    } else if (someChecked) {
+                        mainCheckbox.checked = false;
+                        mainCheckbox.indeterminate = true;
+                    } else {
+                        mainCheckbox.checked = false;
+                        mainCheckbox.indeterminate = false;
+                    }
+                });
+            });
+
+            // Gestione dell'invio del form
+            const form = document.getElementById('competenceForm');
+            form.addEventListener('submit', function (e) {
+                e.preventDefault(); // Previene l'invio reale del form
+                
+                const formData = new FormData(form);
+                const result = {};
+
+                for (const [key, value] of formData.entries()) {
+                    const cleanKey = key.replace('[]', '');
+                    if (!result[cleanKey]) {
+                        result[cleanKey] = [];
+                    }
+                    result[cleanKey].push(value);
+                }
+
+                if (result.email && result.email.length === 1) result.email = result.email[0];
+                if (result.ufficio && result.ufficio.length === 1) result.ufficio = result.ufficio[0];
+
+                console.log('Dati del form inviati:', result);
+                
+                const submitButton = e.submitter;
+                const originalText = submitButton.innerHTML;
+                submitButton.innerHTML = 'Inviato con successo!';
+                submitButton.disabled = true;
+                
+                setTimeout(() => {
+                    submitButton.innerHTML = originalText;
+                    submitButton.disabled = false;
+                }, 2500);
+            });
+        });
+    </script>
 </body>
 </html>
